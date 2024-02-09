@@ -357,7 +357,7 @@
             HTML += `<div id="player"></div>`;
             HTML += `<div id="player-title">${video.snippet.title}</div>`;
             HTML += `<div id="player-description">${video.snippet.description}</div>`;
-            setHTML(HTML, player.document);
+            setHTML(HTML, player.document, false);
             iframeAPI.onload = function () {
                 getElem("www-widgetapi-script", player.document).onload =
                     function () {
