@@ -147,11 +147,33 @@
             .option-container {
                 display: flex;
             }
+            .option-container input[type="password"],
+            .option-container input[type="text"] {
+                background-color: #000000;
+            }
+            #disguise {
+                position: absolute;
+                display: none;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 1;
+            }
+            .return-tab {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 10px;
+                height: 10px;
+                background-color: #888888;
+                z-index: 2;
+            }
         </style>
     </head>
     <body>
         <script>
-            const apiKey = "AIzaSyClq6vxiX1LuGKlRmGB4Se-VvQ2ANrIttc";
+            let apiKey = null;
             const apiUrl = "https://www.googleapis.com/youtube/v3/";
             const players = [];
             function preventDefault(e) {
@@ -185,8 +207,8 @@
             function setKey(key, value) {
                 return localStorage.setItem(key, value);
             }
-            function verifyKey(key, def) {
-                if (getKey(key) === undefined) setKey(key, def);
+            function verifyKey(key, value) {
+                if (getKey(key) === undefined) setKey(key, value);
                 return getKey(key);
             }
             function clearDocument(doc = document) {
@@ -197,10 +219,37 @@
                 if (data instanceof Element) doc.body.append(data);
                 else doc.body.innerHTML += data;
             }
+            function disguise(load = true) {
+                let disguiseFrame = getElem("disguise");
+                if (!disguiseFrame) {
+                    const iframe = document.createElement("iframe");
+                    iframe.src = getKey("disguiseURL");
+                    iframe.frameBorder = 0;
+                    iframe.id = "disguise";
+                    setHTML(iframe, undefined, false);
+                } else if (load) {
+                    if (disguiseFrame.style.display == "block") {
+
+                    } else {
+                    disguiseFrame.style.display = "block";
+                    const returnTab = document.createElement("div");
+                    returnTab.classList.add("return-tab");
+                    returnTab.addEventListener("click", function() {
+                        disguise();
+                        this.remove();
+                    });
+                    setHTML(returnTab, undefined, false);
+                    }
+                }
+            }
             function setSettings(key, value) {
                 if (key != undefined && value != undefined) setKey(key, value);
-                if (getKey("preventUnload") == 'true') window.addEventListener("beforeunload", preventDefault);
+                verifyKey("preventUnload", "true");
+                verifyKey("apiKey", null);
+                if (getKey("preventUnload") == "true") window.addEventListener("beforeunload", preventDefault);
                 else window.removeEventListener("beforeunload", preventDefault);
+                apiKey = getKey("apiKey");
+                disguise(false);
             }
             function getQueryUrl(
                 part,
@@ -221,15 +270,20 @@
             async function showSettings() {
                 clearDocument();
                 await showHead();
-                const HTML = `
-                    <div>
+                const container = document.createElement("div");
+                function createSetting(name, key, type = "text", placeholder = "") {
+                    container.innerHTML += `
                         <div class="option-container">
-                            <div>Prevent Unload</div>
-                            <input type="checkbox" onchange="setSettings('preventUnload', this.checked)">
+                            <div>${name}</div>
+                            <input type="${type}" onchange="setSettings('${key}', this.value)" placeholder="${placeholder}" onclick="this.select()" value=${getKey(key)}>
                         </div>
-                    </div>
-                `;
-                setHTML(HTML, undefined, false);
+                    `;
+                }
+                createSetting("Prevent Unload", "preventUnload", "checkbox");
+                createSetting("API Key", "apiKey", "password");
+                createSetting("Disguise Key", "disguiseKey", undefined, "Disguise Key");
+                createSetting("Disguise URL", "disguiseURL", undefined, "https://");
+                setHTML(container, undefined, false);
             }
             async function loadChannelData(id) {
                 const apiUrl = `https://www.googleapis.com/youtube/v3/channels?id=${id}&key=${apiKey}&part=snippet,statistics`;
@@ -421,6 +475,10 @@
                     }
                 );
             }
+            document.addEventListener("keydown", function(e) {
+                if (e.key == getKey("disguiseKey")) disguise();
+            });
+            setSettings();
             showHead();
         </script>
     </body>
