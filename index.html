@@ -188,6 +188,13 @@
             background-color: #888888;
             z-index: 2;
         }
+        #player {
+            width: 100vw;
+            max-height: 100vh;
+        }
+        #player-title {
+            font-size: 64px;
+        }
     </style>
 </head>
 
@@ -336,14 +343,13 @@
             } else if (!id) id = video.id.videoId;
             players.push(open());
             const player = players[players.length - 1];
-            player.document.head.append(getElem("style"));
             const iframeAPI = document.createElement("script");
             iframeAPI.src = "https://www.youtube.com/iframe_api";
             player.document.head.append(iframeAPI);
             let HTML = "";
             HTML += `<div id="player"></div>`;
-            HTML += `<div>${video.snippet.title}</div>`;
-            HTML += `<div>${video.snippet.description}</div>`;
+            HTML += `<div id="player-title">${video.snippet.title}</div>`;
+            HTML += `<div id="player-description">${video.snippet.description}</div>`;
             setHTML(HTML, player.document);
             iframeAPI.onload = function () {
                 getElem("www-widgetapi-script", player.document).onload =
