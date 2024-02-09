@@ -183,7 +183,7 @@
             z-index: 1;
         }
 
-        .return-tab {
+        #return-tab {
             position: absolute;
             left: 0;
             top: 0;
@@ -261,13 +261,13 @@
             } else if (load) {
                 if (disguiseFrame.style.display == "block") {
                     disguiseFrame.style.display = "none";
+                    getElem("return-tab").remove
                 } else {
                     disguiseFrame.style.display = "block";
                     const returnTab = document.createElement("div");
-                    returnTab.classList.add("return-tab");
+                    returnTab.id = "return-tab";
                     returnTab.addEventListener("click", function () {
                         disguise();
-                        this.remove();
                     });
                     setHTML(returnTab, undefined, false);
                 }
