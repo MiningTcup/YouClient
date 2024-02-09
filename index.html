@@ -419,7 +419,7 @@
                 .then((response) => response.json())
                 .then((data) => showResults(query, data.items))
                 .catch((e) =>
-                    console.error(`Error searching for ${query}: ${e}`)
+                    document.write(`Error searching for ${query}: ${e}`)
                 );
         }
         function search(query) {
