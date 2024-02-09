@@ -343,7 +343,9 @@
             } else if (!id) id = video.id.videoId;
             players.push(open());
             const player = players[players.length - 1];
-            player.document.head.append(getElem("style"));
+            const style = document.createElement("style");
+            style.innerHTML = getElem("style").innerHTML;
+            player.document.head.append(style);
             const iframeAPI = document.createElement("script");
             iframeAPI.src = "https://www.youtube.com/iframe_api";
             player.document.head.append(iframeAPI);
