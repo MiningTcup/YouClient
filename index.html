@@ -263,6 +263,9 @@
                     disguiseFrame.style.display = "none";
                     getElem("return-tab").remove();
                 } else {
+                    for (player of players) {
+                        player.video.pauseVideo();
+                    }
                     disguiseFrame.style.display = "block";
                     const returnTab = document.createElement("div");
                     returnTab.id = "return-tab";
@@ -362,7 +365,7 @@
                 getElem("www-widgetapi-script", player.document).onload =
                     function () {
                         player.eval(`
-                            new YT.Player("player", {
+                            window.player = new YT.Player("player", {
                                 height: "1080",
                                 width: "1920",
                                 videoId: "${id}"
