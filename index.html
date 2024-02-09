@@ -347,8 +347,8 @@
             } else if (!id) id = video.id.videoId;
             players.push(open());
             const player = players[players.length - 1];
-            player.document.head.append(getElem("style").cloneNode());
-            player.document.head.append(getElem("favicon").cloneNode());
+            player.document.head.append(getElem("style").cloneNode(true));
+            player.document.head.append(getElem("favicon").cloneNode(true));
             player.document.title = document.title;
             const iframeAPI = document.createElement("script");
             iframeAPI.src = "https://www.youtube.com/iframe_api";
