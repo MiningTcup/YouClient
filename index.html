@@ -260,7 +260,7 @@
                 setHTML(iframe, undefined, false);
             } else if (load) {
                 if (disguiseFrame.style.display == "block") {
-
+                    disguiseFrame.style.display = "none";
                 } else {
                     disguiseFrame.style.display = "block";
                     const returnTab = document.createElement("div");
