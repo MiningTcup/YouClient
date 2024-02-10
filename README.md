@@ -13,7 +13,7 @@ YouClient is a powerful YouTube client designed to enhance your video streaming 
 
 ## Getting Started
 
-To start using YouClient with full features, go to the [website](https://miningtcup.github.io/YouClient/), or, for a more untraceable experience, download [index.html](index.html).
+To start using YouClient quickly and with full features, go to the [website](https://miningtcup.github.io/YouClient/). To get a more untraceable and secure experience, download [index.html](index.html).
 
 ## Disclaimer
 
