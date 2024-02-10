@@ -9,7 +9,7 @@ YouClient is a powerful YouTube client designed to enhance your video streaming 
 - **Enhanced UI Customizability**: Tailor the user interface to your liking with extra UI customization options, making your video streaming experience truly personal.
 - **Extended Video Information**: Gain access to additional video details that aren't typically available on YouTube, enriching your understanding and appreciation of the content.
 - **Advanced Search Options**: Utilize extra search functionalities to find exactly what you're looking for with greater precision and efficiency.
-- **Untracable**: Enjoy your favorite content without leaving a trace in your browsing history, offering complete privacy and discretion.
+- **Untraceable**: Enjoy your favorite content without leaving a trace in your browsing history, offering complete privacy and discretion.
 
 ## Getting Started
 
