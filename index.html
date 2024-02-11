@@ -200,7 +200,6 @@
             #player {
                 width: 100%;
                 max-height: 100vh;
-                border-radius: 12px;
             }
             #player-title {
                 font-size: 20px;
@@ -411,8 +410,8 @@
                 iframeAPI.src = "https://www.youtube.com/iframe_api";
                 player.document.head.append(iframeAPI);
                 let HTML = "";
-                HTML += `<div id="player-container">`;
                 HTML += `<div id="player"></div>`;
+                HTML += `<div id="player-container">`;
                 HTML += `<div id="player-title">${video.snippet.title}</div>`;
                 HTML += `<div id="player-channel-container">
                             <img src="${channel.snippet.thumbnails.default.url}" id="player-channel-image"></img>
