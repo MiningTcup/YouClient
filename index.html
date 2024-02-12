@@ -403,6 +403,7 @@
                 } else if (!id) id = video.id.videoId;
                 players.push(open());
                 const player = players[players.length - 1];
+                if (getKey("preventUnload")) player.addEventListener("beforeunload", e => e.preventDefault);
                 player.document.head.append(getElem("style").cloneNode(true));
                 player.document.head.append(getElem("favicon").cloneNode(true));
                 player.document.title = document.title;
