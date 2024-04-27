@@ -2,18 +2,15 @@
 
 YouClient is a powerful YouTube client designed to enhance your video streaming experience with advanced features and customizability. Built using the YouTube API, it offers a unique blend of speed, flexibility, and additional video information that goes beyond the standard YouTube interface.
 
+To get started, **download [index.html](index.html)**
+
 ## Features Overview
 
 - **Bypass Restrictions**: Effortlessly bypass GoGuardian and Securly Home filters for unrestricted access to video content.
-- **Fast Loading**: Experience significantly faster video loading times, ensuring a smooth and uninterrupted viewing experience.
-- **Enhanced UI Customizability**: Tailor the user interface to your liking with extra UI customization options, making your video streaming experience truly personal.
-- **Extended Video Information**: Gain access to additional video details that aren't typically available on YouTube, enriching your understanding and appreciation of the content.
-- **Advanced Search Options**: Utilize extra search functionalities to find exactly what you're looking for with greater precision and efficiency.
+- **Fast Loading**: Experience significantly faster video loading times, ensuring a smooth and uninterrupted viewing experience by removing useless suggestions.
 - **Untraceable**: Enjoy your favorite content without leaving a trace in your browsing history, offering complete privacy and discretion.
 - **Ad-free**: Watch your favorite videos without any interruptions from advertisements, enhancing your viewing experience.
 ## Getting Started
-
-To start using YouClient quickly and with full features, go to the [website](error). To get a more untraceable and secure experience, download [index.html](index.html). Note that the downloaded version does not include some features, such as a home page, due to API restrictions.
 
 ## Disclaimer
 
