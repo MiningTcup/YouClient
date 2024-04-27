@@ -10,10 +10,10 @@ YouClient is a powerful YouTube client designed to enhance your video streaming 
 - **Extended Video Information**: Gain access to additional video details that aren't typically available on YouTube, enriching your understanding and appreciation of the content.
 - **Advanced Search Options**: Utilize extra search functionalities to find exactly what you're looking for with greater precision and efficiency.
 - **Untraceable**: Enjoy your favorite content without leaving a trace in your browsing history, offering complete privacy and discretion.
-
+- **Ad-free**: Watch your favorite videos without any interruptions from advertisements, enhancing your viewing experience.
 ## Getting Started
 
-To start using YouClient quickly and with full features, go to the [website](https://miningtcup.github.io/YouClient/). To get a more untraceable and secure experience, download [index.html](index.html). Note that the downloaded version does not include some features, such as a home page, due to API restrictions.
+To start using YouClient quickly and with full features, go to the [website](error). To get a more untraceable and secure experience, download [index.html](index.html). Note that the downloaded version does not include some features, such as a home page, due to API restrictions.
 
 ## Disclaimer
 
@@ -21,4 +21,4 @@ Please note that YouClient is provided "as is" and comes with absolutely no warr
 
 By choosing to use YouClient, you acknowledge and agree that you are doing so at your own risk and discretion. The creators and contributors will not be liable under any circumstances for claims or damages resulting from the use of this software. This software is distributed under the MIT License, which explicitly states that there is no warranty for the program, to the extent permitted by applicable law.
 
-In simpler terms, if you think YouClient is a virus or if it causes any harm, remember that you're using it by choice, and you can't threaten the creators for any problems you believe it causes. It's important to understand and accept these terms before using the software.
+In simpler terms, if you think YouClient is a virus or if it causes any harm, remember that you're using it by choice, and you can't threaten the creators or contributors for any problems you believe it causes. It's important to understand and accept these terms before using the software.

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>YouClient Lite</title>
+    <link id="favicon" rel="icon"
+        href="data:image/vnd.microsoft.icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREREREAARERERERERARERERERERERERERAREREREREREAEREREREREQAAERERERERAAAREREREREAEREREREREQERERERERERERERERARERERERERAAERERERERAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAAwAMAAP//AAD//wAA" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+    </style>
+    <style id="style">
+        @font-face {
+            font-family: "YouTube Sans";
+            src: url("https://fonts.gstatic.com/s/youtubesans/v23/Qw38ZQNGEDjaO2m6tqIqX5E-AVS5_rSejo46_PCTRspJ0OosolrBEJL3HO_T7fE.woff2") format("woff2");
+        }
+
+        html {
+            scrollbar-color: #ababab #00000000;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background-color: #0f0f0f;
+            color: #ffffff;
+            width: calc(100vw - (100vw - 100%));
+        }
+
+        body * {
+            outline: none;
+            font-family: inherit;
+            color: inherit;
+        }
+
+        #head-bar {
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+        }
+
+        #search-container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+
+        #search-icon {
+            width: 24px;
+            height: 24px;
+            user-select: none;
+            fill: #f1f1f1;
+        }
+
+        #search-button {
+            border-bottom-right-radius: 40px;
+            border-top-right-radius: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            width: 64px;
+            border: #303030 1px solid;
+            border-left: 0;
+            background-color: #ffffff14;
+            cursor: pointer;
+        }
+
+        #search-bar {
+            height: calc(40px - 4 / 3px);
+            width: 100%;
+            padding-left: 16px;
+            padding-right: 4px;
+            border-bottom-left-radius: 40px;
+            border-top-left-radius: 40px;
+            border: #303030 1px solid;
+            background-color: #121212;
+            font-size: 16px;
+            max-width: 500px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        #search-bar:focus {
+            border-color: #1c62b9;
+            border-width: calc(2 / 3px);
+        }
+
+        #search-bar::selection {
+            background-color: #F00;
+        }
+
+        #suggestion-box {
+            position: absolute;
+            max-width: calc(100vw - 96px);
+            top: 44px;
+            left: 0;
+            background-color: #212121;
+            border-radius: 12px;
+            padding: 16px 0px 8px 0px;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 0 16px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+        }
+
+        .suggestion-item:hover,
+        .suggestion-item:focus {
+            background-color: #ffffff1a;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .result-container {
+            display: flex;
+            margin-top: 16px;
+        }
+
+        .result-container * {
+            cursor: pointer;
+        }
+
+        .thumbnail {
+            object-fit: cover;
+            width: 384px;
+            height: 216px;
+            border-radius: 12px;
+            margin-right: 16px;
+        }
+
+        .thumbnail-title {
+            font-size: 22px;
+        }
+
+        .thumbnail-info {
+            font-size: 12px;
+            color: #aaaaaa;
+        }
+
+        #results-container {
+            padding: 36px 24px;
+        }
+
+        .thumbnail-channel-container {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .thumbnail-channel-container img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        #settings {
+            padding: 6px;
+            border-radius: 10px;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        #settings:hover {
+            background-color: #ffffff1a;
+        }
+
+        .option-container {
+            display: flex;
+            justify-content: left;
+            font-size: 14px;
+            margin: 12px 56px 12px 56px;
+            min-height: 44px;
+        }
+
+        .option-container .switch {
+            margin-right: 24px;
+        }
+
+        .option-container .input-container {
+            background-color: #0000;
+            height: 36px;
+            padding: 0 4px;
+            border: solid 0.8px #ffffff14;
+            border-radius: 12px;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-container input[type="password"],
+        .option-container input[type="text"] {
+            margin: 0 16px;
+            padding: 1px 2px;
+            background: none;
+            border: none;
+            outline: none;
+            width: 240px;
+        }
+
+        .option-container .option-name {
+            width: 150px;
+            margin-right: 56px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        #settings-banner {
+            border-bottom: solid 0.8px #ffffff14;
+            margin: 48px 32px 20px 32px;
+            display: flex;
+            height: 180px;
+            font-size: 20px;
+            font-family: "YouTube Sans", "Roboto", sans-serif;
+            color: #aaaaaa;
+            font-weight: 600;
+        }
+
+        #disguise {
+            position: absolute;
+            display: none;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        #return-tab {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #888888;
+            z-index: 2;
+        }
+
+        #player-container {
+            padding: 24px;
+        }
+
+        #player {
+            width: 100%;
+            max-height: 100vh;
+        }
+
+        #player-title {
+            font-size: 20px;
+            padding: 2px 0;
+            font-weight: 500;
+        }
+
+        #player-description {
+            border-radius: 12px;
+            background-color: #ffffff1a;
+            width: calc(100% - 24px);
+            white-space: pre-wrap;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        #player-description a {
+            color: #3ea6ff;
+            text-decoration: none;
+        }
+
+        #player-channel-container {
+            display: flex;
+            margin-top: 12px;
+        }
+
+        #player-channel-image {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+        }
+
+        #player-channel-title {
+            font-size: 16px;
+        }
+
+        #player-channel-subscribers {
+            font-size: 12px;
+            color: #aaaaaa;
+        }
+
+        .round-12 {
+            border-radius: 12px;
+        }
+
+        #player-description-info {
+            display: flex;
+            font-weight: 500;
+        }
+
+        #player-description-tags {
+            color: #3ea6ff;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 20px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 3px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #363636;
+            -webkit-transition: 0.08s;
+            transition: 0.08s;
+            border-radius: 100px;
+            height: 14px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 0;
+            top: -3px;
+            background-color: #ffffff;
+            -webkit-transition: 0.08s;
+            transition: 0.08s;
+            border-radius: 100px;
+        }
+
+        input:checked+.slider {
+            background-color: #404040;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #404040;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(16px);
+            -ms-transform: translateX(16px);
+            transform: translateX(16px);
+            background-color: #3ea6ff;
+        }
+
+        .bold {
+            font-weight: 500;
+        }
+
+        .bold-600 {
+            font-weight: 600;
+        }
+
+        .grey {
+            color: #aaaaaa;
+        }
+
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .search-icon svg {
+            fill: #f1f1f1;
+            margin-right: 14px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .player {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+        }
+
+        #settings-container {
+            margin-top: 44px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="head-bar">
+        <div id="search-container">
+            <div id="suggestion-box"></div>
+            <input type="text" id="search-bar" autocomplete="off" placeholder="Enter ID" autofocus />
+            <button id="search-button">
+                <span id="search-icon">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
+                        width="24">
+                        <path d="M400-280v-400l200 200-200 200Z" />
+                    </svg>
+                </span>
+            </button>
+        </div>
+    </div>
+    <embed class="player" id="embed"></embed>
+    <iframe class="player" frameborder="0" id="iframe" allowfullscreen></iframe>
+    <div id="settings-container">
+        <div class="option-container">
+            <label class="switch">
+                <input class="checkOption" type="checkbox" onchange="setSetting('preventUnload', this)" id="preventUnload" />
+                <span class="slider"></span>
+            </label>
+            <div>
+                <div class="option-name">Prevent Unload</div>
+                <div class="option-desc grey">
+                    Prevent YouClient Lite from being closed without your
+                    consent.
+                </div>
+            </div>
+        </div>
+        <div class="option-container">
+            <label class="switch">
+                <input class="checkOption" type="checkbox" onchange="setSetting('openNew', this)" id="openNew" />
+                <span class="slider"></span>
+            </label>
+            <div>
+                <div class="option-name">Play in New Tab</div>
+                <div class="option-desc grey">
+                    Open the video player in a new about:blank tab.
+                </div>
+            </div>
+        </div>
+        <div class="option-container">
+            <label class="switch">
+                <input class="checkOption" type="checkbox" onchange="setSetting('useEmbed', this)" id="useEmbed" />
+                <span class="slider"></span>
+            </label>
+            <div>
+                <div class="option-name">Use Embed</div>
+                <div class="option-desc grey">
+                    Limits some features but bypasses blockers.
+                </div>
+            </div>
+        </div>
+        <div class="option-container">
+            <div class="option-name">Tab Title</div>
+            <div class="input-container">
+                <input class="textOption" type="text" oninput="setSetting('tabTitle', this)" id="tabTitle">
+            </div>
+        </div>
+        <div class="option-container">
+            <div class="option-name">Tab Favicon</div>
+            <div class="input-container">
+                <input class="textOption" type="text" oninput="setSetting('tabFavicon', this)" id="tabFavicon">
+            </div>
+        </div>
+    </div>
+    <script>
+        function preventDefault(e) {
+            e.preventDefault();
+        }
+        
+        function setSetting(key, input) {
+            switch (input.type) {
+                case "checkbox":
+                    localStorage.setItem(key, input.checked);
+                    break;
+                case "text":
+                case "password":
+                    localStorage.setItem(key, input.value);
+                    break;
+            }
+            if (localStorage.getItem("preventUnload") == "true") window.addEventListener("beforeunload", preventDefault);
+            else window.removeEventListener("beforeunload", preventDefault);
+            document.title = localStorage.getItem("tabTitle");
+            document.querySelector("link[rel='icon']").href = localStorage.getItem("tabFavicon");
+        }
+        
+        function resetPlayers() {
+            const iframe = document.getElementById("iframe");
+            iframe.src = "";
+            iframe.style.display = "none";
+            const embed = document.getElementById("embed");
+            embed.src = "";
+            embed.style.display = "none";
+        }
+        
+        const searchBar = document.getElementById("search-bar");
+        const embed = document.getElementById("embed");
+        function play() {
+            const match = searchBar.value.match(/[A-Za-z0-9_-]{11}/);
+            if (match) {
+                const videoId = match[0];
+                if (localStorage.getItem("openNew") == "true") {
+                    const win = open();
+                    if (localStorage.getItem("preventUnload") == "true") win.addEventListener("beforeunload", preventDefault);
+                    win.document.head.append(document.querySelector("link[rel*='icon']").cloneNode());
+                    win.document.title = document.title;
+                    win.document.head.append()
+                    win.document.body.style.backgroundColor = "#000";
+                    if (localStorage.getItem("useEmbed") == "true") {
+                        const player = document.createElement("embed");
+                        player.src = `https://youtube.com/embed/${videoId}?fs=0`;
+                        player.style.width = "100vw";
+                        player.style.height = "100vh";
+                        player.frameBorder = 0;
+                        win.document.body.style.margin = "0";
+                        win.document.body.append(player);
+                    } else {
+                        const player = document.createElement("iframe");
+                        player.src = `https://youtube.com/embed/${videoId}`;
+                        player.setAttribute("allowfullscreen", "");
+                        player.style.width = "100vw";
+                        player.style.height = "100vh";
+                        player.frameBorder = 0;
+                        win.document.body.style.margin = "0";
+                        win.document.body.append(player);
+                    }
+                } else {
+                    resetPlayers();
+                    if (localStorage.getItem("useEmbed") == "true") {
+                        const player = document.getElementById("embed");
+                        player.src = `https://youtube.com/embed/${videoId}?fs=0`;
+                        player.style.display = "block";
+                    } else {
+                        const player = document.getElementById("iframe");
+                        player.src = `https://youtube.com/embed/${videoId}`;
+                        player.style.display = "block";
+                    }
+                }
+            }
+        }
+        
+        document.querySelectorAll(".checkOption").forEach((item) => {
+            item.checked = localStorage.getItem(item.id) == "true";
+        });
+        document.querySelectorAll(".textOption").forEach((item) => {
+            item.value = localStorage.getItem(item.id);
+            item.addEventListener("focus", function() {
+                item.select();
+            });
+        });
+        
+        if (localStorage.getItem("preventUnload") == "true") {
+            window.addEventListener("beforeunload", function (e) {
+                e.preventDefault();
+            });
+        }
+        document.title = localStorage.getItem("tabTitle");
+        document.querySelector("link[rel='icon']").href = localStorage.getItem("tabFavicon");
+        
+        searchBar.addEventListener("input", play);
+        document.getElementById("search-button").addEventListener("click", play);
+        
+        searchBar.addEventListener("keydown", function(e) {
+            if (e.key == "Enter") play();
+        });
+        
+        searchBar.addEventListener("focus", () => searchBar.select());
+
+        document.addEventListener("dragover", preventDefault);
+
+        document.addEventListener("drop", function(e) {
+            e.preventDefault();
+            const data = e.dataTransfer.getData("text");
+            searchBar.value = data;
+            searchBar.dispatchEvent(new Event("input"));
+            searchBar.focus();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <title>YouClient</title>
+        <link
+            id="favicon"
+            rel="icon"
+            href="data:image/vnd.microsoft.icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREREREAARERERERERARERERERERERERERAREREREREREAEREREREREQAAERERERERAAAREREREREAEREREREREQERERERERERERERERARERERERERAAERERERERAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAAwAMAAP//AAD//wAA"
+        />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+        </style>
+        <style id="style">
+            @font-face {
+                font-family: "YouTube Sans";
+                src: url("https://fonts.gstatic.com/s/youtubesans/v23/Qw38ZQNGEDjaO2m6tqIqX5E-AVS5_rSejo46_PCTRspJ0OosolrBEJL3HO_T7fE.woff2")
+                    format("woff2");
+            }
+            html {
+                scrollbar-color: #ababab #00000000;
+            }
+
+            body {
+                margin: 0;
+                font-family: "Roboto", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                background-color: #0f0f0f;
+                color: #ffffff;
+                width: calc(100vw - (100vw - 100%));
+            }
+
+            body * {
+                outline: none;
+                font-family: inherit;
+                color: inherit;
+            }
+
+            #head-bar {
+                height: 56px;
+                display: flex;
+                align-items: center;
+                padding: 0 16px;
+            }
+
+            #search-container {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+            }
+
+            #search-icon {
+                width: 24px;
+                height: 24px;
+                user-select: none;
+                fill: #f1f1f1;
+            }
+
+            #search-button {
+                border-bottom-right-radius: 40px;
+                border-top-right-radius: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 40px;
+                width: 64px;
+                border: #303030 1px solid;
+                border-left: 0;
+                background-color: #ffffff14;
+                cursor: pointer;
+            }
+
+            #search-bar {
+                height: calc(40px - 4 / 3px);
+                width: 100%;
+                padding-left: 16px;
+                padding-right: 4px;
+                border-bottom-left-radius: 40px;
+                border-top-left-radius: 40px;
+                border: #303030 1px solid;
+                background-color: #121212;
+                font-size: 16px;
+                max-width: 500px;
+            }
+
+            #search-bar:focus {
+                border-color: #1c62b9;
+                border-width: calc(2 / 3px);
+            }
+
+            #suggestion-box {
+                position: absolute;
+                max-width: calc(100vw - 96px);
+                top: 44px;
+                left: 0;
+                background-color: #212121;
+                border-radius: 12px;
+                padding: 16px 0px 8px 0px;
+                display: none;
+            }
+
+            .suggestion-item {
+                padding: 0 16px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+            }
+
+            .suggestion-item:hover,
+            .suggestion-item:focus {
+                background-color: #ffffff1a;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            .result-container {
+                display: flex;
+                margin-top: 16px;
+            }
+
+            .result-container * {
+                cursor: pointer;
+            }
+
+            .thumbnail {
+                object-fit: cover;
+                width: 384px;
+                height: 216px;
+                border-radius: 12px;
+                margin-right: 16px;
+            }
+
+            .thumbnail-title {
+                font-size: 22px;
+            }
+
+            .thumbnail-info {
+                font-size: 12px;
+                color: #aaaaaa;
+            }
+
+            #results-container {
+                padding: 36px 24px;
+            }
+
+            .thumbnail-channel-container {
+                display: flex;
+                align-items: center;
+                padding: 12px 0;
+            }
+
+            .thumbnail-channel-container img {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
+
+            #settings {
+                padding: 6px;
+                border-radius: 10px;
+                user-select: none;
+                cursor: pointer;
+            }
+
+            #settings:hover {
+                background-color: #ffffff1a;
+            }
+
+            .option-container {
+                display: flex;
+                justify-content: left;
+                font-size: 14px;
+                margin: 12px 56px 12px 56px;
+                min-height: 44px;
+            }
+            .option-container .switch {
+                margin-right: 24px;
+            }
+            .option-container .input-container {
+                background-color: #0000;
+                height: 36px;
+                padding: 0 4px;
+                border: solid 0.8px #ffffff14;
+                border-radius: 12px;
+                justify-content: space-between;
+                display: flex;
+                align-items: center;
+            }
+            .option-container input[type="password"],
+            .option-container input[type="text"] {
+                margin: 0 16px;
+                padding: 1px 2px;
+                background: none;
+                border: none;
+                outline: none;
+                width: 240px;
+            }
+            .option-container .option-name {
+                width: 150px;
+                margin-right: 56px;
+                font-weight: 500;
+                margin-bottom: 4px;
+            }
+
+            #settings-banner {
+                border-bottom: solid 0.8px #ffffff14;
+                margin: 48px 32px 20px 32px;
+                display: flex;
+                height: 180px;
+                font-size: 20px;
+                font-family: "YouTube Sans", "Roboto", sans-serif;
+                color: #aaaaaa;
+                font-weight: 600;
+            }
+
+            #disguise {
+                position: absolute;
+                display: none;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 1;
+            }
+
+            #return-tab {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 10px;
+                height: 10px;
+                background-color: #888888;
+                z-index: 2;
+            }
+
+            #player-container {
+                padding: 24px;
+            }
+
+            #player {
+                width: 100%;
+                max-height: 100vh;
+            }
+
+            #player-title {
+                font-size: 20px;
+                padding: 2px 0;
+                font-weight: 500;
+            }
+
+            #player-description {
+                border-radius: 12px;
+                background-color: #ffffff1a;
+                width: calc(100% - 24px);
+                white-space: pre-wrap;
+                padding: 12px;
+                margin-top: 12px;
+            }
+
+            #player-description a {
+                color: #3ea6ff;
+                text-decoration: none;
+            }
+
+            #player-channel-container {
+                display: flex;
+                margin-top: 12px;
+            }
+
+            #player-channel-image {
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+            }
+
+            #player-channel-title {
+                font-size: 16px;
+            }
+
+            #player-channel-subscribers {
+                font-size: 12px;
+                color: #aaaaaa;
+            }
+
+            .round-12 {
+                border-radius: 12px;
+            }
+
+            #player-description-info {
+                display: flex;
+                font-weight: 500;
+            }
+
+            #player-description-tags {
+                color: #3ea6ff;
+            }
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 36px;
+                height: 20px;
+            }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 3px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #363636;
+                -webkit-transition: 0.08s;
+                transition: 0.08s;
+                border-radius: 100px;
+                height: 14px;
+            }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 20px;
+                width: 20px;
+                left: 0;
+                top: -3px;
+                background-color: #ffffff;
+                -webkit-transition: 0.08s;
+                transition: 0.08s;
+                border-radius: 100px;
+            }
+
+            input:checked + .slider {
+                background-color: #404040;
+            }
+
+            input:focus + .slider {
+                box-shadow: 0 0 1px #404040;
+            }
+
+            input:checked + .slider:before {
+                -webkit-transform: translateX(16px);
+                -ms-transform: translateX(16px);
+                transform: translateX(16px);
+                background-color: #3ea6ff;
+            }
+            .bold {
+                font-weight: 500;
+            }
+            .bold-600 {
+                font-weight: 600;
+            }
+            .grey {
+                color: #aaaaaa;
+            }
+            .icon {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .icon svg {
+                width: 100%;
+                height: 100%;
+            }
+            .search-icon svg {
+                fill: #f1f1f1;
+                margin-right: 14px;
+            }
+            .flex {
+                display: flex;
+            }
+            .align-items-center {
+                align-items: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script>
+            let apiKey = "";
+            const apiUrl = "https://www.googleapis.com/youtube/v3/";
+            const players = [];
+            let openNew = false;
+            String.prototype.splitStart = function (delimiter) {
+                return this.startsWith(delimiter)
+                    ? [delimiter, this.slice(delimiter.length)]
+                    : ["", this];
+            };
+            function preventDefault(e) {
+                e.preventDefault();
+            }
+            function getFormatted(num) {
+                if (num < 1000) {
+                    return num.toString();
+                } else if (num < 1000000) {
+                    return (num / 1000).toFixed(1) + "K";
+                } else if (num < 1000000000) {
+                    return (num / 1000000).toFixed(1) + "M";
+                } else if (num < 1000000000000) {
+                    return (num / 1000000000).toFixed(1) + "B";
+                } else {
+                    return (num / 1000000000000).toFixed(1) + "T";
+                }
+            }
+            function getFormattedDate(iso) {
+                const date = new Date(iso);
+                return date.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                });
+            }
+            function getTimeAgo(date) {
+                const seconds = Math.floor(
+                    (new Date() - new Date(date)) / 1000
+                );
+                const intervals = {
+                    year: seconds / 31536000,
+                    month: seconds / 2592000,
+                    week: seconds / 604800,
+                    day: seconds / 86400,
+                    hour: seconds / 3600,
+                    minute: seconds / 60,
+                };
+
+                for (let interval in intervals) {
+                    const count = Math.floor(intervals[interval]);
+                    if (count > 1) {
+                        return `${count} ${interval}s ago`;
+                    }
+                    if (count === 1) {
+                        return `1 ${interval} ago`;
+                    }
+                }
+
+                return "Just now";
+            }
+            function getFormattedLinks(text, shorten = false) {
+                const urlRegex =
+                    /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
+                return text.replace(urlRegex, function (url) {
+                    if (shorten) {
+                        const shortened =
+                            url.length > shorten + 3
+                                ? `${url.substring(0, shorten)}...`
+                                : url;
+                        return `<a href="${url}" target="_blank">${shortened}</a>`;
+                    } else {
+                        return `<a href="${url}" target="_blank">${url}</a>`;
+                    }
+                });
+            }
+            function getJSON(text) {
+                return JSON.stringify(text, null, 4);
+            }
+            function getElem(id, doc = document) {
+                return doc.getElementById(id);
+            }
+            function deleteKey(key) {
+                localStorage.removeItem(key);
+            }
+            function getKey(key) {
+                return localStorage.getItem(key);
+            }
+            function setKey(key, value) {
+                return localStorage.setItem(key, value);
+            }
+            function verifyKey(key, value) {
+                const oldValue = getKey(key);
+                if (oldValue === undefined || oldValue === null)
+                    setKey(key, value);
+                return oldValue;
+            }
+            function clearDocument(doc = document, bodyID) {
+                const bodyElems = doc.getElementsByClassName(bodyID);
+                if (bodyID) {
+                    if (bodyElems) {
+                        for (elem of bodyElems) {
+                            elem.innerHTML = "";
+                        }
+                    } else return null;
+                } else doc.body.innerHTML = "";
+            }
+            function setHTML(data, doc = document, replace = true) {
+                if (replace) clearDocument();
+                if (data instanceof Element) doc.body.append(data);
+                else doc.body.innerHTML += data;
+            }
+            function setFavicon(url) {
+                let link = document.querySelector("link[rel*='icon']");
+                if (!link) {
+                    link = document.createElement("link");
+                    link.type = "image/x-icon";
+                    link.rel = "shortcut icon";
+                    document.getElementsByTagName("head")[0].appendChild(link);
+                }
+                link.href = url;
+            }
+            function disguise(load = true) {
+                let disguiseFrame = getElem("disguise");
+                if (!disguiseFrame) {
+                    const iframe = document.createElement("iframe");
+                    iframe.src = getKey("disguiseURL");
+                    iframe.frameBorder = 0;
+                    iframe.id = "disguise";
+                    setHTML(iframe, undefined, false);
+                } else if (load) {
+                    if (disguiseFrame.style.display == "block") {
+                        disguiseFrame.style.display = "none";
+                        getElem("return-tab").remove();
+                    } else {
+                        disguiseFrame.style.display = "block";
+                        disguiseFrame.style.height = document.body.scrollHeight;
+                        const returnTab = document.createElement("div");
+                        returnTab.id = "return-tab";
+                        returnTab.addEventListener("click", function () {
+                            disguise();
+                        });
+                        setHTML(returnTab, undefined, false);
+                    }
+                }
+            }
+            function setSettings(key, value) {
+                if (key != undefined && value != undefined) setKey(key, value);
+                verifyKey("preventUnload", "false");
+                verifyKey("openNew", "true");
+                verifyKey("apiKey", "");
+                verifyKey("tabTitle", "YouClient");
+                verifyKey(
+                    "tabFavicon",
+                    "data:image/vnd.microsoft.icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREREREAARERERERERARERERERERERERERAREREREREREAEREREREREQAAERERERERAAAREREREREAEREREREREQERERERERERERERERARERERERERAAERERERERAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAAwAMAAP//AAD//wAA"
+                );
+                if (getKey("preventUnload") == "true")
+                    window.addEventListener("beforeunload", preventDefault);
+                else window.removeEventListener("beforeunload", preventDefault);
+                openNew = getKey("openNew");
+                apiKey = getKey("apiKey");
+                document.title = getKey("tabTitle");
+                setFavicon(getKey("tabFavicon"));
+                disguise(false);
+            }
+            function getQueryUrl(
+                part,
+                type,
+                regionCode,
+                order,
+                maxResults,
+                q,
+                extraArgs = ""
+            ) {
+                return `${apiUrl}search?part=snippet&type=video&regionCode=US&order=${order}&maxResults=${maxResults}&q=${encodeURIComponent(
+                    q
+                )}&key=${apiKey}${extraArgs}`;
+            }
+            function getVideoUrl(part, id) {
+                return `${apiUrl}videos?part=${part}&id=${id}&key=${apiKey}`;
+            }
+            async function showSettings() {
+                clearDocument(undefined, "content");
+                setSettings();
+                const content = document.createElement("div");
+                content.classList.add("content");
+                function createSetting(
+                    name,
+                    key,
+                    type = "text",
+                    placeholder = "",
+                    desc = "",
+                    other = ""
+                ) {
+                    switch (type) {
+                        case "text":
+                        case "password":
+                            content.innerHTML += `
+                            <div class="option-container">
+                                <div class="option-name">${name}</div>
+                                <div class="input-container">
+                                    <input type="${type}" onchange="setSettings('${key}', this.value)" placeholder="${placeholder}" onclick="this.select()" value="${getKey(
+                                key
+                            )}"${other}>
+                                </div>
+                            </div>
+                        `;
+                            break;
+                        case "checkbox":
+                            content.innerHTML += `
+                            <div class="option-container">
+                                <label class="switch">
+                                    <input type="${type}" onchange="setSettings('${key}', this.checked)"${
+                                getKey(key) === "true" ? " checked" : ""
+                            }${other}>
+                                    <span class="slider"></span>
+                                </label>
+                                <div>
+                                    <div class="option-name">${name}</div>
+                                    <div class="option-desc grey">${desc}</div>
+                                </div>
+                            </div>
+                        `;
+                            break;
+                    }
+                }
+                content.innerHTML += `
+            <div class="bold" id="settings-banner">
+                YouClient<br>Settings
+                <div style="margin-left: auto; width: 180px; height: 180px; fill: currentcolor;"><svg fill="none" fill-rule="evenodd" viewBox="0 0 155 155" xmlns="http://www.w3.org/2000/svg" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;">
+                  <g transform="translate(50 17.7)">
+                    <mask fill="#fff">
+                      <path d="M.4.3h98.7v110.4H.4z"></path>
+                    </mask>
+                    <path d="M29.8 1.3C42.9-.2 62.4.1 73.5 1.3c15.1 1.7 23 6.7 24 22 1 15.4 1.6 37.4 1.6 45.4s-3.3 14.7-11 17c-7.6 2.3-9.3 6.7-10.3 12.7-1 6-4.7 12-18.7 12.3C45.1 111 .4 103 .4 103s4.3-52.6 4.7-69.7c.3-20.9 2.7-29.5 24.7-32" fill="#EEE" mask="url(#account_advanced__b)"></path>
+                  </g>
+                  <g transform="translate(6 88.7)">
+                    <mask fill="#fff">
+                      <path d="M.8.8h114.1V50H.8z"></path>
+                    </mask>
+                    <path d="M8.5 50c-6-.5-10.7-5.7-5.5-14.5C8 26.7 17.3 13.5 41 10.3c23.9-3.1 23.6 3.8 35.5 3.3C87.4 13 87.4 5 87.8 3.6c.5-1.6 1.6-3 4.8-2.7 3.2.4 17.2 2.3 19 3 1.7.6 3.4 1.4 3.3 5.2-.1 3.7-3.2 40.9-48 40.9H8.5z" fill="#00D4B5" mask="url(#account_advanced__d)"></path>
+                  </g>
+                  <path d="M101 70.3c-1 .3-6.2 4.3-6 10.7.4 6.4 4.2 11.2 12.2 11.9 8 .7 14.4-.8 17.5-5.8 3.1-5 1.5-10.3.7-11.1-.8-1-7.8-2.2-8.8-2.2-1 .1-1.3.8-1.2 2.2 0 1.3.8 9-5.8 7.6-6.5-1.4-3.4-7.2-1.1-9.4 1.4-1.4 0-2.8-1.4-3.1-1.4-.4-4.3-1.4-6.1-.8" fill="#4620AE"></path>
+                  <g transform="translate(6 47.7)">
+                    <mask fill="#fff">
+                      <path d="M0 .7h69.5v52.1H0z"></path>
+                    </mask>
+                    <path d="M10.2 10.9c7.7-1.7 40.3-9 45.4-10 4.8-.8 10.4.2 11.8 5 0 0-3.4 8-3.3 8.3.7 4.5 5.3 8.2 5.3 8.2v3.4c0 5.2-2 21.1-27.5 25.8-20.8 3.8-35.7-.8-40.6-19-3.8-14 1.2-20 9-21.7" fill="#00D4B5" mask="url(#account_advanced__f)"></path>
+                  </g>
+                  <path d="M33.9 54.7c0-5.8-.3-11.3 2.6-11.3 2.8 0 6.3 9.3 6.3 9.3l-9 2zM19.6 74c1 5.4 3.6 7.4 12 5.9 7-1.3 35.2-8 43.8-9.8a143.9 143.9 0 0 0-2-16.5C66.6 55.1 31.7 63 27.8 64c-7.3 1.7-9.3 4.6-8.2 10" fill="#4620AE"></path>
+                  <path d="M30.4 38.3c.5-2.6 2.8-4 5.2-3.5 2.7.5 4.2 2.7 3.7 5.2-.6 2.5-2.6 4-5.3 3.6-2.6-.4-4.1-2.6-3.6-5.3" fill="#FF76DA"></path>
+                  <path d="M47.4 84.9c.5-2.7 2.8-4 5.3-3.5 2.7.5 4.2 2.7 3.6 5.2-.5 2.4-2.5 4-5.2 3.6-2.6-.4-4.2-2.6-3.7-5.3" fill="#4620AE"></path>
+                  <path d="M119.6 50.8c3.2-3.3 7.8-2.9 10.8.1 0 0 1.2 6.2-2 9-3 3-8.9 1.8-8.9 1.8-3.2-3.1-3.2-7.7 0-11" fill="#FF76DA"></path>
+                  <path d="M119.5 61.7c3.4 3.1 7.8 3 11 0 3-2.9 3.2-7.5-.1-10.8l-10.9 10.8z" fill="#4620AE"></path>
+                  <path d="M119.4 41c-3.2-3.2-2.8-7.8.2-10.8 0 0 5-.1 8 3s2.7 7.9 2.7 7.9c-3 3.2-7.6 3.2-10.9 0" fill="red"></path>
+                  <path d="M130.3 41c3.2-3.3 3-7.6 0-10.8-2.8-3.1-7.4-3.2-10.7 0l10.7 10.9z" fill="#FF76DA"></path>
+                  <path d="M72.4 35.6c0-4.6 3.5-7.6 7.7-7.6 0 0 5 3.4 4.8 7.7-.1 4.3-4.8 7.6-4.8 7.6-4.5.1-7.7-3.1-7.7-7.7" fill="red"></path>
+                  <path d="M80 43.3a7.6 7.6 0 0 0 7.8-7.7c.1-4.2-3-7.5-7.7-7.6v15.3zM101.3 29.1L95 37.9c-1.3 1.8 0 3.3 1.7 3.3h10.5c1.7 0 2.7-1.9 1.7-3.3l-6-8.8a1 1 0 0 0-1.6 0" fill="#4620AE"></path>
+                  <path d="M106.3 62.4h-9a2.5 2.5 0 0 1-2.5-2.6V53c0-1.9 1.6-2.9 3-2.9h9c1.4 0 2.5 1.1 2.5 2.5v7.2c0 1.5-1.2 2.6-3 2.6" fill="red"></path>
+                  <path d="M120.9 97.8c.1-3.8-1.6-4.6-3.4-5.3-1.7-.6-15.7-2.5-19-3-3.1-.3-4.2 1.2-4.7 2.8-.4 1.5-.4 9.5-11.2 10-3 .1-5.1-.2-7.1-.7v37a43 43 0 0 0 45.4-40.8" fill="#00D4B5"></path>
+                  <path d="M28.8 73.7a1.5 1.5 0 0 1-.3-3l40.2-8.9c.8-.2 1.6.4 1.8 1.2.2.8-.3 1.6-1.2 1.8l-40.2 8.8h-.3" fill="#FF76DA"></path>
+                  <path d="M62.8 119.7h-25a1.3 1.3 0 0 1 0-2.5h25a1.3 1.3 0 0 1 0 2.5M58.5 113.6H42a1.3 1.3 0 0 1 0-2.5h16.4a1.3 1.3 0 0 1 0 2.5M58.5 125.8H42a1.3 1.3 0 0 1 0-2.5h16.4a1.3 1.3 0 0 1 0 2.5M75.5 135.7a.8.8 0 0 1-.8-.8v-28a.8.8 0 0 1 1.5 0v28c0 .5-.3.8-.7.8M79.4 135.7a.8.8 0 0 1-.8-.8v-28a.8.8 0 0 1 1.5 0v28c0 .5-.3.8-.7.8M25 135.7a.8.8 0 0 1-.8-.8v-22.6a.8.8 0 0 1 1.5 0V135c0 .5-.3.8-.7.8M21.2 135.7a.8.8 0 0 1-.7-.8v-19.6a.8.8 0 0 1 1.5 0v19.6c0 .5-.4.8-.8.8" fill="#4620AE"></path>
+                </svg></div>
+                </div>
+            `;
+                createSetting(
+                    "Prevent Unload",
+                    "preventUnload",
+                    "checkbox",
+                    "",
+                    "Prevent YouClient from being closed without your consent."
+                );
+                createSetting(
+                    "Play in New Tab",
+                    "openNew",
+                    "checkbox",
+                    "",
+                    "Open the video player in a new about:blank tab."
+                );
+                createSetting("Tab Title", "tabTitle", "text", "YouClient");
+                createSetting("Tab Favicon", "tabFavicon", "text", "https://");
+                createSetting("API Key", "apiKey", "password");
+                createSetting(
+                    "Disguise Key",
+                    "disguiseKey",
+                    "text",
+                    "",
+                    "",
+                    ` maxlength="1"`
+                );
+                createSetting(
+                    "Disguise URL",
+                    "disguiseURL",
+                    "text",
+                    "https://"
+                );
+                setHTML(content, undefined, false);
+            }
+            async function loadChannelData(id) {
+                const apiUrl = `https://www.googleapis.com/youtube/v3/channels?id=${id}&key=${apiKey}&part=snippet,statistics`;
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    if (data.items.length === 0) {
+                        console.error("Channel not found");
+                        return null;
+                    } else return data.items[0];
+                } catch (error) {
+                    console.error(
+                        "Error fetching channel info:",
+                        error.message
+                    );
+                    return null;
+                }
+            }
+            async function loadVideoData(id) {
+                const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${apiKey}&part=snippet,statistics`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                return data.items[0];
+            }
+            function setHeight(elem) {
+                elem.style.height = "";
+                elem.style.height = elem.scrollHeight;
+            }
+            async function loadVideo(id, video, data, channel) {
+                if (!video) video = await loadVideoData(id);
+                if (!video) {
+                    console.log("Invalid Video");
+                    return;
+                } else if (!id) id = video.id.videoId;
+                let player;
+                if (openNew == "true") {
+                    players.push(open());
+                    player = players[players.length - 1];
+                    player.document.head.append(
+                        getElem("style").cloneNode(true)
+                    );
+                    player.document.head.append(
+                        getElem("favicon").cloneNode(true)
+                    );
+                    player.document.title = document.title;
+                    if (getKey("preventUnload") == "true")
+                        player.addEventListener("beforeunload", preventDefault);
+                } else {
+                    clearDocument(undefined, "content");
+                    player = window;
+                }
+                const iframeAPI = document.createElement("script");
+                iframeAPI.id = "iframeAPI";
+                iframeAPI.src = "https://www.youtube.com/iframe_api";
+                player.document.head.append(iframeAPI);
+                const content = document.createElement("div");
+                content.classList.add("content");
+                if (openNew == "true") {
+                    content.innerHTML += `
+                    <div id="player"></div>
+                        <div id="player-container">
+                        <div id="player-title">${video.snippet.title}</div>
+                        <div id="player-channel-container">
+                            <img src="${
+                                channel.snippet.thumbnails.default.url
+                            }" id="player-channel-image"></img>
+                            <div id="player-channel-info-container"></div>
+                            <div>
+                                <div id="player-channel-title">${
+                                    video.snippet.channelTitle
+                                }</div>
+                                <div id="player-channel-subscribers">${getFormatted(
+                                    channel.statistics.subscriberCount
+                                )} subscribers</div>
+                            </div>
+                        </div>
+                        <div id="player-description"><div id="player-description-info">${getFormatted(
+                            data.statistics.viewCount
+                        )} views ${getFormattedDate(
+                        data.snippet.publishedAt
+                    )} <div id="player-description-tags">${(
+                        data.snippet.description.match(/#\w+/g) || []
+                    ).join(" ")}</div></div>${
+                        getFormattedLinks(data.snippet.description, 45) ||
+                        "No description available."
+                    }</div>
+                    </div>
+                `;
+                } else {
+                    content.innerHTML += `
+                    <div id="player-container">
+                        <div class="round-12" id="player"></div>
+                        <div id="player-title">${video.snippet.title}</div>
+                        <div id="player-channel-container">
+                            <img src="${
+                                channel.snippet.thumbnails.default.url
+                            }" id="player-channel-image"></img>
+                            <div id="player-channel-info-container"></div>
+                            <div>
+                                <div id="player-channel-title">${
+                                    video.snippet.channelTitle
+                                }</div>
+                                <div id="player-channel-subscribers">${getFormatted(
+                                    channel.statistics.subscriberCount
+                                )} subscribers</div>
+                            </div>
+                        </div>
+                        <div id="player-description"><div id="player-description-info">${getFormatted(
+                            data.statistics.viewCount
+                        )} views ${getFormattedDate(
+                        data.snippet.publishedAt
+                    )} <div id="player-description-tags">${(
+                        data.snippet.description.match(/#\w+/g) || []
+                    ).join(" ")}</div></div>${
+                        getFormattedLinks(data.snippet.description, 45) ||
+                        "No description available."
+                    }</div>
+                    </div>
+                `;
+                }
+                setHTML(content, player.document, false);
+                try {
+                    player.eval(`
+                            new YT.Player("player", {
+                                height: "1080",
+                                width: "1920",
+                                videoId: "${id}"
+                            });
+                        `);
+                } catch {
+                    iframeAPI.onload = function () {
+                        getElem(
+                            "www-widgetapi-script",
+                            player.document
+                        ).onload = function () {
+                            player.eval(`
+                            new YT.Player("player", {
+                                height: "1080",
+                                width: "1920",
+                                videoId: "${id}"
+                            });
+                        `);
+                        };
+                    };
+                }
+            }
+            function loadChannel(name) {}
+            async function showResults(query, items) {
+                clearDocument(undefined, "content");
+                setSettings();
+                getElem("search-bar").value = query;
+                if (items.length < 1) {
+                    console.log(`No items matched ${query}`);
+                    return;
+                }
+                const content = document.createElement("div");
+                content.classList.add("content");
+                const results = document.createElement("div");
+                results.id = "results-container";
+                content.append(results);
+                setHTML(content, undefined, false);
+                items.forEach(async (item) => {
+                    const elem = document.createElement("div");
+                    elem.classList.add("result-container");
+                    elem.innerHTML = `
+                        <img src="${item.snippet.thumbnails.high.url}" alt="${item.snippet.title}" class="thumbnail">
+                        <div>
+                            <div class="thumbnail-title">${item.snippet.title}</div>
+                            <div class="thumbnail-info">Loading views</div>
+                            <div class="thumbnail-channel-container">
+                                <img src="" class="thumbnail-channel-image"></img>
+                                <div class="thumbnail-info">${item.snippet.channelTitle}</div>
+                            </div>
+                            <div class="thumbnail-info">${item.snippet.description}</div>
+                        </div>`;
+                    results.append(elem);
+                    const videoInfo = await loadVideoData(item.id.videoId);
+                    const channelInfo = await loadChannelData(
+                        videoInfo.snippet.channelId
+                    );
+                    elem.querySelector(".thumbnail-info").textContent =
+                        getFormatted(videoInfo.statistics.viewCount) +
+                        " views · " +
+                        getTimeAgo(videoInfo.snippet.publishedAt);
+                    const channelImageElem = elem.querySelector(
+                        ".thumbnail-channel-image"
+                    );
+                    channelImageElem.src =
+                        channelInfo.snippet.thumbnails.default.url;
+                    elem.addEventListener("click", () =>
+                        loadVideo(item.id.videoId, item, videoInfo, channelInfo)
+                    );
+                });
+            }
+            function loadResults(query) {
+                fetch(
+                    getQueryUrl(
+                        "snippet",
+                        "video",
+                        "US",
+                        "relevance",
+                        "50",
+                        query
+                    )
+                )
+                    .then((response) => response.json())
+                    .then((data) => showResults(query, data.items))
+                    .catch((e) =>
+                        console.error(`Error searching for ${query}: ${e}`)
+                    );
+            }
+            async function search(query) {
+                getElem("suggestion-box").style.display = "none";
+                getElem("search-bar").value = query;
+                const sel = query.split(":");
+                const sel0 = sel[0];
+                const sel1 = sel.slice(1);
+                switch (sel0) {
+                    case "id":
+                        const id = sel1;
+                        const video = await loadVideoData(id);
+                        const data = video;
+                        const channel = await loadChannelData(
+                            data.snippet.channelId
+                        );
+                        loadVideo(sel1, video, data, channel);
+                        break;
+                    default:
+                        loadResults(sel);
+                }
+            }
+            // Does not require API credits
+            function getSearchSuggestions(text, limit) {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement("script");
+                    const callbackName = `suggestCallBack_${Date.now()}`;
+
+                    window[callbackName] = (data) => {
+                        const suggestions = data[1]
+                            .map((item) => ({ value: item[0] }))
+                            .slice(0, limit);
+                        resolve(suggestions);
+                        delete window[callbackName];
+                        script.remove();
+                    };
+
+                    script.src = `http://suggestqueries.google.com/complete/search?hl=en&ds=yt&jsonp=${callbackName}&q=${text}&client=youtube`;
+                    document.body.appendChild(script);
+                });
+            }
+            function setSuggestionsPosition() {
+                const searchBarPos =
+                    getElem("search-bar").getBoundingClientRect();
+                const suggestionBox = getElem("suggestion-box");
+                suggestionBox.style.top = `${
+                    searchBarPos.top + searchBarPos.height + 4
+                }px`;
+                suggestionBox.style.left = `${searchBarPos.left}px`;
+                suggestionBox.style.width =
+                    getElem("search-bar").clientWidth + "px";
+            }
+            async function showHead() {
+                setHTML(
+                    `
+                    <svg style="display: none">
+                        <defs>
+                            <symbol id="search-vector" viewBox="0 0 24 24">
+                                <path
+                                    d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"
+                                ></path>
+                            </symbol>
+                        </defs>
+                    </svg>
+                    <div id="head-bar">
+                        <span id="settings" class="material-symbols-outlined" onclick="showSettings()">settings</span>
+                        <div id="search-container">
+                            <div id="suggestion-box"></div>
+                            <input type="text" id="search-bar" autocomplete="off" placeholder="Search" autofocus>
+                            <button id="search-button">
+                                <span id="search-icon">
+                                <svg class="icon" width="24" height="24">
+                                    <use xlink:href="#search-vector"></use>
+                                </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>`,
+                    undefined,
+                    false
+                );
+                const searchBar = getElem("search-bar");
+                const suggestionBox = getElem("suggestion-box");
+                searchBar.onkeydown = suggestionBox.onkeydown = function (e) {
+                    switch (e.key) {
+                        case "ArrowDown":
+                            e.preventDefault();
+                            const children = Array.from(suggestionBox.children);
+                            const focusedElement = document.activeElement;
+                            const currentIndex =
+                                children.indexOf(focusedElement);
+                            let nextIndex = currentIndex + 1;
+                            if (nextIndex >= children.length) {
+                                nextIndex = 0;
+                            }
+                            children[nextIndex].focus();
+                            break;
+                        case "ArrowUp":
+                            e.preventDefault();
+                            const childrenUp = Array.from(
+                                suggestionBox.children
+                            );
+                            const focusedElementUp = document.activeElement;
+                            const currentIndexUp =
+                                childrenUp.indexOf(focusedElementUp);
+                            let prevIndex = currentIndexUp - 1;
+                            if (prevIndex < 0) {
+                                prevIndex = childrenUp.length - 1;
+                            }
+                            childrenUp[prevIndex].focus();
+                            break;
+                        case "Enter":
+                            if (event.target == searchBar)
+                                search(searchBar.value);
+                            else event.target.click();
+                            break;
+                    }
+                };
+                searchBar.addEventListener("focus", function () {
+                    if (suggestionBox.innerHTML.length > 0)
+                        suggestionBox.style.display = "block";
+                });
+                document.addEventListener("click", function (e) {
+                    if (
+                        !searchBar.contains(e.target) &&
+                        !suggestionBox.contains(e.target)
+                    ) {
+                        suggestionBox.style.display = "none";
+                    }
+                });
+                searchBar.addEventListener("input", function (e) {
+                    setSuggestionsPosition();
+                    getSearchSuggestions(searchBar.value, 14)
+                        .then((suggestions) => {
+                            suggestionBox.innerHTML = suggestions
+                                .map(
+                                    (item) =>
+                                        `
+                                        <div tabindex="0" class="suggestion-item" onclick="search('${
+                                            item.value
+                                        }')">
+                                            <div class="flex align-items-center">
+                                                <span class="search-icon">
+                                                    <svg class="icon suggestion-icon" height="20" width="20">
+                                                        <use xlink:href="#search-vector"></use>
+                                                    </svg>
+                                                </span>${item.value
+                                                    .splitStart(
+                                                        searchBar.value
+                                                    )[0]
+                                                    .replace(" ", "&nbsp;")}
+                                                <div class="bold-600">${item.value
+                                                    .splitStart(
+                                                        searchBar.value
+                                                    )[1]
+                                                    .replace(
+                                                        " ",
+                                                        "&nbsp;"
+                                                    )}</div>
+                                            </div>
+                                        </div>
+                                        `
+                                )
+                                .join("");
+                            if (suggestions.length === 0) {
+                                suggestionBox.style.display = "none";
+                            } else suggestionBox.style.display = "block";
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching suggestions:", error);
+                        });
+                });
+                getElem("search-button").addEventListener(
+                    "click",
+                    function (e) {
+                        search(searchBar.value);
+                    }
+                );
+            }
+            document.addEventListener("keydown", function (e) {
+                if (e.key == getKey("disguiseKey")) disguise();
+            });
+            window.addEventListener("resize", setSuggestionsPosition);
+            clearDocument(undefined);
+            showHead();
+            setSettings();
+        </script>
+    </body>
+</html>
