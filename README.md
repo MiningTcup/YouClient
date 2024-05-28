@@ -10,6 +10,7 @@ To get started, **download [index.html](index.html)**
 - **Fast Loading**: Experience significantly faster video loading times, ensuring a smooth and uninterrupted viewing experience by removing useless suggestions.
 - **No History**: Enjoy your favorite content without leaving a trace in your browsing history.
 - **Ad-free**: Watch your favorite videos without any interruptions from advertisements.
+- **Advanced Search**: Use several search filters to find what you're looking for.
 ## Getting Started
 
 ## Disclaimer
