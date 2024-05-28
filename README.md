@@ -8,8 +8,8 @@ To get started, **download [index.html](index.html)**
 
 - **Bypass Restrictions**: Effortlessly bypass GoGuardian and Securly Home filters for unrestricted access to video content.
 - **Fast Loading**: Experience significantly faster video loading times, ensuring a smooth and uninterrupted viewing experience by removing useless suggestions.
-- **Untraceable**: Enjoy your favorite content without leaving a trace in your browsing history, offering complete privacy and discretion.
-- **Ad-free**: Watch your favorite videos without any interruptions from advertisements, enhancing your viewing experience.
+- **No History**: Enjoy your favorite content without leaving a trace in your browsing history.
+- **Ad-free**: Watch your favorite videos without any interruptions from advertisements.
 ## Getting Started
 
 ## Disclaimer
