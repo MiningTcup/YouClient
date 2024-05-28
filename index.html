@@ -134,7 +134,24 @@
                 width: 384px;
                 height: 216px;
                 border-radius: 12px;
+                display: block;
+            }
+
+            .thumbnail-container {
+                position: relative;
                 margin-right: 16px;
+            }
+
+            .thumbnail-duration {
+                font-size: 12px;
+                font-weight: 500;
+                margin: 8px;
+                border-radius: 4px;
+                background: #00000099;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                padding: 1px 4px;
             }
 
             .thumbnail-title {
@@ -163,15 +180,86 @@
                 margin-right: 8px;
             }
 
-            #settings {
+            #settings,
+            #order {
                 padding: 6px;
                 border-radius: 10px;
                 user-select: none;
                 cursor: pointer;
             }
 
-            #settings:hover {
+            #settings:hover,
+            #order:hover {
                 background-color: #ffffff1a;
+            }
+
+            #order-popup {
+                margin: 24px;
+                max-height: calc(100% - 96px);
+                background: #212121;
+                overflow: hidden;
+                max-width: 1640px;
+                padding: 24px;
+            }
+
+            #order-popup-title {
+                font-size: 18px;
+            }
+
+            #order-popup-options-container {
+                display: flex;
+            }
+
+            #order-popup-close-container {
+                width: 24px;
+                height: 24px;
+                margin-left: auto;
+                cursor: pointer;
+            }
+
+            .popup-center-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                justify-content: center;
+                align-items: baseline;
+                width: 100vw;
+                height: 100vh;
+                background: #0000004d;
+                display: none;
+            }
+
+            .order-popup-option {
+                display: block;
+                width: 120px;
+            }
+
+            .order-popup-option:not(:last-child) {
+                margin-right: 16px;
+            }
+
+            .order-popup-option-header {
+                font-size: 12px;
+                padding: 15px 0;
+                margin: 5px 0;
+                border-bottom: solid 1px #ffffff33;
+                font-weight: 500;
+            }
+
+            .order-popup-choice {
+                margin-top: 15px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .order-popup-choice:not(.order-popup-chosen) {
+                color: #aaaaaa;
+                font-weight: 400;
+            }
+
+            .order-popup-choice.order-popup-chosen {
+                color: #ffffff;
+                font-weight: 500;
             }
 
             .option-container {
@@ -208,6 +296,31 @@
                 margin-right: 56px;
                 font-weight: 500;
                 margin-bottom: 4px;
+            }
+
+            #result-page-container {
+                display: flex;
+                margin: 0 24px 16px 24px;
+                justify-content: center;
+                width: calc(100vw - 48px);
+            }
+
+            .increment-page {
+                width: 24px;
+                height: 24px;
+                border-radius: 4px;
+            }
+
+            .increment-page.unavailible {
+                opacity: 0.3;
+            }
+
+            .increment-page:not(.unavailible) {
+                cursor: pointer;
+            }
+
+            .increment-page:not(.unavailible):hover {
+                background: #ffffff14;
             }
 
             #settings-banner {
@@ -391,6 +504,10 @@
     <body>
         <script>
             let apiKey = "";
+            let order = "relevance";
+            let duration = "any";
+            let nextPageToken = "";
+            let previousPageToken = "";
             const apiUrl = "https://www.googleapis.com/youtube/v3/";
             const players = [];
             let openNew = false;
@@ -536,6 +653,8 @@
             function setSettings(key, value) {
                 if (key != undefined && value != undefined) setKey(key, value);
                 verifyKey("preventUnload", "false");
+                verifyKey("order", "relevance");
+                verifyKey("duration", "any");
                 verifyKey("openNew", "true");
                 verifyKey("apiKey", "");
                 verifyKey("tabTitle", "YouClient");
@@ -548,6 +667,23 @@
                 else window.removeEventListener("beforeunload", preventDefault);
                 openNew = getKey("openNew");
                 apiKey = getKey("apiKey");
+                order = getKey("order");
+                duration = getKey("duration");
+                try {
+                    document
+                        .querySelectorAll(".order-popup-choice")
+                        .forEach((item) => {
+                            item.classList.remove("order-popup-chosen");
+                        });
+                    getElem(`order-${getKey("order")}`).classList.add(
+                        "order-popup-chosen"
+                    );
+                    getElem(`duration-${getKey("duration")}`).classList.add(
+                        "order-popup-chosen"
+                    );
+                } catch (e) {
+                    console.log(e);
+                }
                 document.title = getKey("tabTitle");
                 setFavicon(getKey("tabFavicon"));
                 disguise(false);
@@ -568,6 +704,17 @@
             function getVideoUrl(part, id) {
                 return `${apiUrl}videos?part=${part}&id=${id}&key=${apiKey}`;
             }
+
+            function showOrder() {
+                const popup = getElem("order-popup-container");
+                popup.style.display = "flex";
+                getElem("order-popup-close-container").focus();
+            }
+            function closeOrder() {
+                const popup = getElem("order-popup-container");
+                popup.style.display = "none";
+            }
+
             async function showSettings() {
                 clearDocument(undefined, "content");
                 setSettings();
@@ -842,14 +989,22 @@
                 const content = document.createElement("div");
                 content.classList.add("content");
                 const results = document.createElement("div");
+                const nav = document.createElement("div");
+                nav.id = "result-page-container";
+                nav.innerHTML = `
+                    <div class="increment-page" onclick="loadResults('${query}', '${previousPageToken}')" id="previous-page"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg></div>
+                    <div class="increment-page" onclick="loadResults('${query}', '${nextPageToken}')" id="next-page"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg></div>`
                 results.id = "results-container";
-                content.append(results);
+                content.append(nav);
+                content.insertBefore(results, content.firstChild);
                 setHTML(content, undefined, false);
                 items.forEach(async (item) => {
                     const elem = document.createElement("div");
                     elem.classList.add("result-container");
                     elem.innerHTML = `
-                        <img src="${item.snippet.thumbnails.high.url}" alt="${item.snippet.title}" class="thumbnail">
+                        <div class="thumbnail-container">
+                            <img src="${item.snippet.thumbnails.high.url}" alt="${item.snippet.title}" class="thumbnail">
+                        </div>
                         <div>
                             <div class="thumbnail-title">${item.snippet.title}</div>
                             <div class="thumbnail-info">Loading views</div>
@@ -877,20 +1032,28 @@
                         loadVideo(item.id.videoId, item, videoInfo, channelInfo)
                     );
                 });
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                if (!previousPageToken) getElem("previous-page").classList.add("unavailible");
+                if (!nextPageToken) getElem("next-page").classList.add("unavailible");
             }
-            function loadResults(query) {
+            function loadResults(query, token) {
                 fetch(
                     getQueryUrl(
                         "snippet",
                         "video",
                         "US",
-                        "relevance",
+                        order,
                         "50",
-                        query
+                        query,
+                        `&videoDuration=${duration}${token ? `&pageToken=${token}` : ''}`
                     )
                 )
                     .then((response) => response.json())
-                    .then((data) => showResults(query, data.items))
+                    .then((data) => {
+                        nextPageToken = data.nextPageToken;
+                        previousPageToken = data.prevPageToken;
+                        showResults(query, data.items);
+                    })
                     .catch((e) =>
                         console.error(`Error searching for ${query}: ${e}`)
                     );
@@ -970,6 +1133,37 @@
                                 </span>
                             </button>
                         </div>
+                        <span id="order" class="material-symbols-outlined" onclick="showOrder()">tune</span>
+                    </div>
+                    <div class="popup-center-container" id="order-popup-container">
+                        <div id="order-popup" class="round-12">
+                            <div class="flex">
+                                <div id="order-popup-title">Search filters</div>
+                                <div id="order-popup-close-container" onclick="closeOrder()">
+                                    <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: inherit; width: 100%; height: 100%;"><path d="m12.71 12 8.15 8.15-.71.71L12 12.71l-8.15 8.15-.71-.71L11.29 12 3.15 3.85l.71-.71L12 11.29l8.15-8.15.71.71L12.71 12z"></path></svg>
+                                </div>
+                            </div>
+                            <div id="order-popup-options-container">
+                                <div class="order-popup-option">
+                                    <h4 class="order-popup-option-header">SORT BY</h4>
+                                    <div class="order-popup-choice" id="order-relevance" onclick="setSettings('order', 'relevance')" title="Sort by relevance">Relevance</div>
+                                    <div class="order-popup-choice" id="order-date" onclick="setSettings('order', 'date')" title="Sort by upload date">Upload date</div>
+                                    <div class="order-popup-choice" id="order-viewCount" onclick="setSettings('order', 'viewCount')" title="Sort by view count">View count</div>
+                                    <div class="order-popup-choice" id="order-rating" onclick="setSettings('order', 'rating')" title="Sort by rating">Rating</div>
+                                    <div class="order-popup-choice" id="order-title" onclick="setSettings('order', 'title')" title="Sort by title">Title</div>
+                                </div>
+
+
+
+                                <div class="order-popup-option">
+                                    <h4 class="order-popup-option-header">DURATION</h4>
+                                    <div class="order-popup-choice" id="duration-any" onclick="setSettings('duration', 'any')" title="Search for any duration">Any duration</div>
+                                    <div class="order-popup-choice" id="duration-short" onclick="setSettings('duration', 'short')" title="Search for under 4 minutes">Under 4 minutes</div>
+                                    <div class="order-popup-choice" id="duration-medium" onclick="setSettings('duration', 'medium')" title="Search for 4 - 20 minutes">4 - 20 minutes</div>
+                                    <div class="order-popup-choice" id="duration-long" onclick="setSettings('duration', 'long')" title="Search for over 20 minutes">Over 20 minutes</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>`,
                     undefined,
                     false
@@ -1043,12 +1237,12 @@
                                                     .splitStart(
                                                         searchBar.value
                                                     )[0]
-                                                    .replace(" ", "&nbsp;")}
+                                                    .replaceAll(" ", "&nbsp;")}
                                                 <div class="bold-600">${item.value
                                                     .splitStart(
                                                         searchBar.value
                                                     )[1]
-                                                    .replace(
+                                                    .replaceAll(
                                                         " ",
                                                         "&nbsp;"
                                                     )}</div>
